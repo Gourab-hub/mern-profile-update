@@ -143,3 +143,33 @@ form .user-details .input-box{
     flex-direction: column;
   }
 }
+
+
+
+/* Login */
+
+form .user-details .input-box1{
+  margin-bottom: 15px;
+  margin-top: 12px;
+  
+}
+form .input-box1 span.details{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.user-details .input-box1 input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.user-details .input-box1 input:focus,
+.user-details .input-box1 input:valid{
+  border-color: #9b59b6;
+}
