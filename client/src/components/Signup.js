@@ -1,7 +1,19 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { NavLink } from 'react-router-dom'
 
 const Signup = () => {
+    const [user, setUser] = useState({
+        name:"",email:"", phone:"", work:"", password:"", cpassword:""
+    });
+
+    let name,value;
+    const handleInputs =(e)=>{
+        console.log(e);
+        name = e.target.name;
+        value= e.target.value;
+        setUser({...user,[name]:value})
+    }
+
     return (
         <>
             <div className="container">
@@ -12,28 +24,46 @@ const Signup = () => {
                         <div className="user-details">
                             <div className="input-box">
                                 <span className="details">Full Name</span>
-                                <input type="text" name="name" placeholder="Enter your name" required autoComplete="off" />
+                                <input type="text" name="name" placeholder="Enter your name" required
+                                value={user.name}
+                                onChange={handleInputs}
+                                autoComplete="off" />
                             </div>
                         
                             <div className="input-box">
                                 <span className="details">Email</span>
-                                <input type="text" name="" placeholder="Enter your email" required autoComplete="off" />
+                                <input type="text" name="email" placeholder="Enter your email" required
+                                value={user.email}
+                                onChange={handleInputs}
+                                autoComplete="off" />
                             </div>
                             <div className="input-box">
                                 <span className="details">Phone Number</span>
-                                <input type="number" name="number" placeholder="Enter your number" required autoComplete="off" />
+                                <input type="number" name="phone" placeholder="Enter your number" required
+                                value={user.phone}
+                                onChange={handleInputs}
+                                autoComplete="off" />
                             </div>
                             <div className="input-box">
                                 <span className="details">Your Work</span>
-                                <input type="text" name="work" placeholder="Work" required autoComplete="off" />
+                                <input type="text" name="work" placeholder="Work" required
+                                value={user.work}
+                                onChange={handleInputs}
+                                autoComplete="off" />
                             </div>
                             <div className="input-box">
                                 <span className="details">Password</span>
-                                <input type="password" name="password" placeholder="Enter your password" required autoComplete="off" />
+                                <input type="password" name="password" placeholder="Enter your password" required
+                                value={user.password}
+                                onChange={handleInputs}
+                                autoComplete="off" />
                             </div>
                             <div className="input-box">
                                 <span className="details">Confirm Password</span>
-                                <input type="password" name="cpassword" placeholder="Confirm your password" required autoComplete="off" />
+                                <input type="password" name="cpassword" placeholder="Confirm your password" required
+                                value={user.cpassword}
+                                onChange={handleInputs}
+                                autoComplete="off" />
                             </div>
                         </div>
                         
