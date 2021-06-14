@@ -1,11 +1,13 @@
 import React from 'react'
 import Home from './components/Home';
 import Navbar from "./components/Navbar";
-import { Route } from "react-router-dom";
+import { Route,Switch } from "react-router-dom";
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Contact from './components/Contact';
 import About from './components/About';
+import ErrorPage from './components/Errorpage';
+
 import "../src/App.css"
 const App = () => {
   return (
@@ -13,6 +15,8 @@ const App = () => {
 
     
     <Navbar/>
+<Switch>
+
 
     <Route exact path="/">
     <Home/>
@@ -37,8 +41,12 @@ const App = () => {
     <Route path="/signup">
     <Signup/>
     </Route>
+
+    <Route >
+    <ErrorPage/>
+    </Route>
     
-    
+    </Switch>
       
     </>
   )

@@ -221,3 +221,19 @@ form .input-box1 span.details{
 
 
 }
+
+
+/* About  */
+
+.profilepic{
+  width: 15rem;
+  height: 15rem;
+}
+
+.profile-edit-button{
+width: 60px;
+}
+
+.btn1{
+  border: #01101a;
+}
