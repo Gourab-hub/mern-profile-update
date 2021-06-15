@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink ,useHistory } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 const Login = () => {
 
     const [email, setEmail] = useState('');
@@ -8,29 +8,29 @@ const Login = () => {
     const history = useHistory();
 
 
-    const loginUser = async (e)=>{
+    const loginUser = async (e) => {
         e.preventDefault();
-        const res = await fetch("/login",{
+        const res = await fetch("/login", {
             method: "POST",
-            headers:{
+            headers: {
                 "Content-Type": "application/json"
             },
-            body:JSON.stringify({
-               email,
-               password
+            body: JSON.stringify({
+                email,
+                password
             })
         });
 
-        const data =await res.json();
+        const data = await res.json();
 
-        if(data.status===400|| !data){
+        if (data.status === 400 || !data) {
             window.alert("Invalid Credential");
             console.log("Invalid Registration");
 
-        }else{
-           window.alert("Successful Login");
-           console.log("Successful Login");
-           history.push("/")
+        } else {
+            window.alert("Successful Login");
+            console.log("Successful Login");
+            history.push("/")
 
         }
     }
