@@ -7,7 +7,7 @@ const Signup = () => {
 
     const history = useHistory();
 
-
+    
     const [user, setUser] = useState({
         name:"",email:"", phone:"", work:"", password:"", cpassword:""
     });
@@ -64,7 +64,7 @@ const Signup = () => {
                                 <input type="text" name="name" placeholder="Enter your name" required
                                 value={user.name}
                                 onChange={handleInputs}
-                                />
+                                autoComplete="off" />
                             </div>
                         
                             <div className="input-box">
@@ -72,35 +72,35 @@ const Signup = () => {
                                 <input type="text" name="email" placeholder="Enter your email" required
                                 value={user.email}
                                 onChange={handleInputs}
-                                />
+                                autoComplete="off" />
                             </div>
                             <div className="input-box">
                                 <span className="details">Phone Number</span>
                                 <input type="number" name="phone" placeholder="Enter your number" required
                                 value={user.phone}
                                 onChange={handleInputs}
-                                />
+                                autoComplete="off" />
                             </div>
                             <div className="input-box">
                                 <span className="details">Your Work</span>
                                 <input type="text" name="work" placeholder="Work" required
                                 value={user.work}
                                 onChange={handleInputs}
-                                />
+                                autoComplete="off" />
                             </div>
                             <div className="input-box">
                                 <span className="details">Password</span>
                                 <input type="password" name="password" placeholder="Enter your password" required
                                 value={user.password}
                                 onChange={handleInputs}
-                                />
+                                autoComplete="off" />
                             </div>
                             <div className="input-box">
                                 <span className="details">Confirm Password</span>
                                 <input type="password" name="cpassword" placeholder="Confirm your password" required
                                 value={user.cpassword}
                                 onChange={handleInputs}
-                                />
+                                autoComplete="off" />
                             </div>
                         </div>
                         
