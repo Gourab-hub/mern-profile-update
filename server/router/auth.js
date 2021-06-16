@@ -3,6 +3,31 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
+//----------------------------------
+
+var cookieParser = require('cookie-parser')
+ 
+var app = express()
+router.use(cookieParser())
+ 
+router.get('/', function (req, res) {
+  // Cookies that have not been signed
+  console.log('Cookies: ', req.cookies.jwtoken )
+  res.send('Hello home from router ')
+  // Cookies that have been signed
+  console.log('Signed Cookies gbbbb ')
+})
+
+
+
+
+
+
+// ---------------------------------
+const authenticate =require("../middleware/authenticate")
+
+
+
 
 
 require('../db/conn')
@@ -10,10 +35,10 @@ const User = require("../model/userSchema")
 
 
 
-router.get('/', function (req, res) {
-    res.send('Hello home from router ')
-    console.log('hello about')
-  })
+// router.get('/', function (req, res) {
+//     res.send('Hello home from router ')
+//     console.log('hello about')
+//   })
 
 
   // async await style
@@ -142,9 +167,9 @@ router.post('/login', async (req, res) =>{
             token = await userlogin.generateAuthToken()// token generate
 
 
-            console.log(token)
+            console.log("login generate token--------->",token)
             //cookie expiry date manage
-            res.cookie('jwtkon',token,{
+            res.cookie('jwtoken',token,{
                 expires: new Date(Date.now() + 25892000000),
                 httpOnly:true 
             });
@@ -174,4 +199,16 @@ router.post('/login', async (req, res) =>{
         console.log(err)
     }
 })
+
+
+
+router.get('/about', authenticate ,async (req, res) =>{
+    
+    console.log('hello about');
+    res.send(req.rootUser);
+});
+
+
+
+
 module.exports = router;

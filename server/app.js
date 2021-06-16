@@ -23,22 +23,22 @@ app.use(require('./router/auth'))
 //middleware add new
 
 
-const middleware=(req,res,next)=>{
-    console.log("hello Middleware")
-    next()
-}
+// const middleware=(req,res,next)=>{
+//     console.log("hello Middleware")
+//     next()
+// }
 
 
-app.get('/', function (req, res) {
-  res.send('Hello home from server')
-  console.log('hello about')
-})
+// app.get('/', function (req, res) {
+//   res.send('Hello home from server')
+//   console.log('hello about')
+// })
 
 // fat arrow function
-app.get('/about', middleware, (req, res) =>{
-    res.send('Hello about')
-    console.log('hello about')
-});
+// app.get('/about', (req, res) =>{
+//     res.send('Hello about')
+//     console.log('hello about')
+// });
 
 //vrW9dVXUn8FUSlKi
 
