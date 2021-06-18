@@ -209,6 +209,14 @@ router.get('/about', authenticate ,async (req, res) =>{
 });
 
 
+//get User data for Home and contact page
+router.get('/getdata', authenticate ,async (req, res) =>{
+    
+    console.log('hello about');
+    res.send(req.rootUser);
+});
+
+
 
 
 module.exports = router;
