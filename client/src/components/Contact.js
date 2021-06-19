@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 const Contact = () => {
 
     const history = useHistory();
-    const [userData, setuserData] = useState('')
+    const [userData, setuserData] = useState({ name: "", email: "", phone: "", message: "" })
 
     const userContact = async () => {
         try {
@@ -12,15 +12,18 @@ const Contact = () => {
             const res = await fetch('/getdata', {
                 method: "GET",
                 headers: {
-                   
+
                     "Content-Type": "application/json"
                 },
-                credentials: "include"
+
             });
             const data = await res.json();
             console.log("data", data)
             // console.log("555555555555555555555555555555555555")
-            setuserData(data)
+            // setuserData(data)
+
+            setuserData({ ...userData, name: data.name, email: data.email, phone: data.phone })
+
             if (!data.status === 200) {
                 const error = new Error(res.error);
                 throw error;
@@ -36,6 +39,44 @@ const Contact = () => {
     }, []);
 
 
+    //we are storing data in
+    const handelInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+
+        setuserData({ ...userData, [name]: value });
+
+    }
+
+    // send data backender
+
+    const contactForm = async (e) => {
+        e.preventDefault();
+
+        const { name, email, phone, message } = userData;
+
+        const res = await fetch('/contact', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name, email, phone, message
+            })
+        })
+
+        const data = await res.json();
+        console.log("contact data", data)
+
+        if (!data) {
+            console.log("Nothing post");
+           
+        }
+        else {
+            alert("message send")
+            setuserData({ ...userData, message: "" })
+        }
+    }
 
 
     return (
@@ -83,25 +124,36 @@ const Contact = () => {
                 <div className="title">Get In Touch</div>
                 <div className="content p-2">
 
-                    <form action="#" className="justify-content-center">
+                    <form method="POST" className="justify-content-center">
                         <div className="d-flex justify-content-around input-box1">
                             <input type="text" className="m-2"
-                            value={userData.name}
-                             placeholder="Name" required autoComplete="off" />
+                                name="name"
+                                value={userData.name}
+                                onChange={handelInput}
+                                placeholder="Name" required autoComplete="off" />
                             <input type="text" className="m-2"
-                            value={userData.email}
-                             placeholder="Email" required autoComplete="off" />
+                                name="email"
+                                value={userData.email}
+                                onChange={handelInput}
+                                placeholder="Email" required autoComplete="off" />
                             <input type="text" className="m-2"
-                            value={userData.phone}
-                             placeholder="Password" required autoComplete="off" />
+                                name="phone"
+                                value={userData.phone}
+                                onChange={handelInput}
+                                placeholder="Password" required autoComplete="off" />
 
                         </div>
                         <div className="input-box1 d-flex justify-content-center p-2">
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Message"></textarea>
+                            <textarea class="form-control" aria-label="With textarea"
+                                name="message"
+                                value={userData.message}
+                                onChange={handelInput} placeholder="Message"></textarea>
+
                         </div>
 
                         <div className="button">
-                            <input type="submit" className="signup" value="Login" />
+                            <input type="submit" className="signup"
+                                onClick={contactForm} value="Login" />
                         </div>
                     </form>
 

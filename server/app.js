@@ -45,9 +45,9 @@ app.use(require('./router/auth'))
 //mongodb+srv://dbUser:<password>@cluster0.9oty7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 
-app.get('/contact', function (req, res) {
-    res.send('Hello contact')
-})
+// app.get('/contact', function (req, res) {
+//     res.send('Hello contact')
+// })
 
 /*
 app.get('/signup', function (req, res) {

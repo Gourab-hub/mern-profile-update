@@ -219,4 +219,31 @@ router.get('/getdata', authenticate ,async (req, res) =>{
 
 
 
+router.post('/contact', authenticate, async (req, res) => {
+    try {
+       
+        const { name, email, phone, message } = req.body;
+        // console.log("req data",req.body.message,req.body.name,req.body.email);
+        if (!name || !email || !phone || !message) {
+
+            // console.log("Please fill the contact form");
+            return res.json({errors:"Please fill the contact form"})
+            
+        }
+        const userContact = await User.findOne({_id:req.UserID});
+        // console.log("2st part contact userContact",userContact);
+        if(userContact){
+
+            // console.log("Message send successfully from auth.js");
+            const userMessage = await userContact.addMessage(name, email, phone, message);
+            await userContact.save();
+            res.status(201).json({message:"Message send successfully from auth.js "})
+        }
+    } catch (err) {
+        console.log(err)
+    }
+
+});
+
+
 module.exports = router;
