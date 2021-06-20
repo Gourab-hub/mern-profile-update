@@ -47,8 +47,6 @@ const Signup = () => {
             history.push("/login")
 
          }
-
-
     }
 
     return (

@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
+import { UserContext } from '../App'
 const Login = () => {
+
+    const {state,dispatch} = useContext(UserContext)
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,6 +31,7 @@ const Login = () => {
             console.log("Invalid Registration");
 
         } else {
+            dispatch({type: "USER" ,payload: data})
             window.alert("Successful Login");
             console.log("Successful Login");
             history.push("/")
