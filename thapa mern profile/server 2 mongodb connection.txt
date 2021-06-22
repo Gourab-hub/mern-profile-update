@@ -1,0 +1,57 @@
+const express = require('express')
+const mongoose = require('mongoose');
+
+
+const app = express()
+
+const DB ='mongodb+srv://dbUser:vrW9dVXUn8FUSlKi@cluster0.9oty7.mongodb.net/mern-stack?retryWrites=true&w=majority'
+
+mongoose.connect(DB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+}).then(()=>{
+    console.log('connection successful')
+}).catch((err)=>{
+    console.log(err)
+});
+
+
+
+//middleware add
+
+const middleware=(req,res,next)=>{
+    console.log("hello Middleware")
+    next()
+}
+
+
+app.get('/', function (req, res) {
+  res.send('Hello gb')
+  console.log('hello about')
+})
+
+// fat arrow function
+app.get('/about', middleware, (req, res) =>{
+    res.send('Hello about')
+    console.log('hello about')
+});
+
+//vrW9dVXUn8FUSlKi
+
+//mongodb+srv://dbUser:<password>@cluster0.9oty7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+
+app.get('/contact', function (req, res) {
+    res.send('Hello contact')
+})
+
+app.get('/signup', function (req, res) {
+    res.send('Hello signup')
+})
+
+app.get('/registration', function (req, res) {
+    res.send('Hello registration')
+})
+app.listen(3000)

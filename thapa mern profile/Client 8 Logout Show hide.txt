@@ -1,0 +1,307 @@
+1.create context api
+
+
+app.js
+
+
+import React, { createContext,useReducer   } from 'react'
+import Home from './components/Home';
+import Navbar from "./components/Navbar";
+import { Route, Switch } from "react-router-dom";
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Contact from './components/Contact';
+import About from './components/About';
+import ErrorPage from './components/Errorpage';
+import Logout from './components/Logout';
+
+import "../src/App.css"
+import {reducer, initialState} from "../src/reducer/UseReducer"
+
+
+//contextapi
+export const UserContext = createContext();
+
+
+
+
+const Routing = () => {
+  return (
+  <Switch>
+
+  <Route exact path="/">
+    <Home />
+  </Route>
+
+
+  <Route path="/about">
+    <About />
+  </Route>
+
+
+  <Route path="/contact">
+    <Contact />
+  </Route>
+
+
+  <Route path="/login">
+    <Login />
+  </Route>
+
+
+  <Route path="/signup">
+    <Signup />
+  </Route>
+
+
+  <Route path="/logout">
+    <Logout />
+  </Route>
+
+  <Route >
+    <ErrorPage />
+  </Route>
+
+</Switch>
+)
+}
+
+
+
+const App = () => {
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+
+    <>
+      <UserContext.Provider value={{state,dispatch}} >
+
+        <Navbar />
+        <Routing/>
+        </UserContext.Provider>
+
+    </>
+  )
+}
+
+export default App
+
+
+
+
+2.client/src/reducer/UserReducer.js
+
+
+export const initialState = null;
+export const reducer = (state, action) => {
+    
+    if(action.type ==="USER"){
+        return action.payload;
+
+    }
+    return state;
+  };
+
+
+
+3.Navbar.js
+
+
+import React, { useContext } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import { NavLink } from 'react-router-dom'
+import { UserContext } from '../App'
+
+
+
+const Navbar = () => {
+
+    const { state, dispatch } = useContext(UserContext)
+
+    const RenderMenu = () => {
+        if (state) {
+            return (
+                <>
+                    <NavLink className="nav-item nav-link active" to="/">Home <span className="sr-only">(current)</span></NavLink>
+                    <NavLink className="nav-item nav-link" to="/about">About</NavLink>
+                    <NavLink className="nav-item nav-link" to="/contact">Contant</NavLink>
+                    <NavLink className="nav-item nav-link" to="/logout">Logout</NavLink>
+                </>
+
+            )
+        }
+        else {
+            return (
+                <>
+                    <NavLink className="nav-item nav-link active" to="/">Home <span className="sr-only">(current)</span></NavLink>
+                    <NavLink className="nav-item nav-link" to="/about">About</NavLink>
+                    <NavLink className="nav-item nav-link" to="/contact">Contant</NavLink>
+                    <NavLink className="nav-item nav-link " to="/login">Login</NavLink>
+                    <NavLink className="nav-item nav-link" to="/signup">Registration</NavLink>
+
+                </>
+            )
+        }
+    }
+
+
+
+
+    return (
+        <>
+            <nav className="navbar navbar-expand-lg navbar-light bg-white">
+                <NavLink className="navbar-brand" to="/">Navbar</NavLink>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div className="navbar-nav ml-auto">
+                        <RenderMenu />
+
+                    </div>
+                </div>
+            </nav>
+        </>
+    )
+}
+
+export default Navbar
+
+
+
+4.Login.js
+
+
+
+import React, { useState,useContext } from 'react'
+import { NavLink, useHistory } from 'react-router-dom'
+import { UserContext } from '../App'
+const Login = () => {
+
+    const {state,dispatch} = useContext(UserContext)
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const history = useHistory();
+
+
+    const loginUser = async (e) => {
+        e.preventDefault();
+        const res = await fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.status === 400 || !data) {
+            window.alert("Invalid Credential");
+            console.log("Invalid Registration");
+
+        } else {
+            dispatch({type: "USER" ,payload: data})
+            window.alert("Successful Login");
+            console.log("Successful Login");
+            history.push("/")
+
+        }
+    }
+    return (
+        <div>
+            <div className="container">
+                <div className="title">SignIn</div>
+                <div className="content1">
+
+                    <form method="POST">
+                        <div className="user-details">
+                            <div className="input-box1">
+                                <span className="details">Email</span>
+                                <input type="text" name="email"
+
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Enter your email" required autoComplete="off" />
+
+                            </div>
+
+                            <div className="input-box1">
+                                <span className="details">Password</span>
+                                <input type="password" name="password"
+
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Enter your password" required autoComplete="off" />
+
+                            </div>
+
+                        </div>
+
+                        <div className="button form-group">
+                            <input type="submit" className="signup" value="Login" onClick={loginUser} />
+                        </div>
+                    </form>
+                    <div>Not registered? Go to <NavLink to="/signup" >Signup page</NavLink></div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default Login;
+
+
+
+
+
+
+6.Logout.js
+
+
+
+import React,{ useEffect ,useContext} from 'react'
+import { useHistory } from 'react-router-dom'
+import { UserContext } from '../App'
+
+
+
+
+const Logout = () => {
+
+    const history = useHistory();
+    const {state,dispatch} = useContext(UserContext)
+    useEffect(() => {
+        fetch('/logout',{
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json"
+            }
+            ,credentials:"include"
+        })
+        .then((res) =>{
+            dispatch({type: "USER" ,payload: false})
+            history.push('/login',{replace:true});
+            if(res.status!==200){
+
+                const error = new Error(res.error);
+                throw error;
+            }
+        }).catch((err) =>console.error(err))
+    }, [])
+
+    return (
+        <>
+            <h1>Logout</h1>
+        </>
+    )
+}
+
+export default Logout
+
+

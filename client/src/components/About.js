@@ -111,55 +111,13 @@ const About = () => {
                                             </div>
 
                                         </div>
-                                        <div className="tab-pane fade show active " id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <label >Experience </label>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <p>Expert</p>
-                                                </div>
-
-
-                                                <div className="col-md-6">
-                                                    <label >Hourly Rate</label>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <p>10$/</p>
-                                                </div>
-
-                                                <div className="col-md-6">
-                                                    <label >Total Project</label>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <p>230</p>
-                                                </div>
-
-
-                                                <div className="col-md-6">
-                                                    <label >English Level </label>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <p>Expert</p>
-                                                </div>
-
-                                                <div className="col-md-6">
-                                                    <label >Avoilobility</label>
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <p>6 month</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                       
 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-2">
-                            <input type="submit" className="profile-edit-button" />
-                        </div>
+                      
 
                     </div>
                 </form>
